@@ -19,11 +19,11 @@ public class CustomException extends Exception {
     }
 
     public int getHttpStatusCode() {
-        //구현
+        return httpStatus.value();
     }
 
     public String getHttpStatusType() {
-        //구현
+        return httpStatus.getReasonPhrase();
     }
 
     public HttpStatus getHttpStatus() {

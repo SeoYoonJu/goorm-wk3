@@ -28,7 +28,19 @@ public class ExceptionController {
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<Map<String, String>> handleException(RuntimeException e,
                                                                HttpServletRequest request) {
-        //구현
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+
+        LOGGER.error("클래스 내 handleException 호출, {}, {}", request.getRequestURI(),
+                e.getMessage());
+
+        Map<String, String> map = new HashMap<>();
+        map.put("error type", httpStatus.getReasonPhrase());
+        map.put("code", "400");
+        map.put("message", e.getMessage());
+
+        return new ResponseEntity<>(map, responseHeaders, httpStatus);
     }
 
     // 예제 10.19
